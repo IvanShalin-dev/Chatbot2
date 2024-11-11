@@ -32,7 +32,7 @@ let dataset = {
     ]
 };
 
-// Function to display messages in the chat box
+// Function to display messages
 function displayMessage(message, sender) {
     const chatBox = document.getElementById("chatBox");
     const messageDiv = document.createElement("div");
@@ -44,6 +44,7 @@ function displayMessage(message, sender) {
 
 // Function to handle user input
 function submitResponse() {
+    console.log("Button clicked!"); // Debugging line
     const userInput = document.getElementById("userInput").value.trim();
     if (!userInput) return; // Don't process empty responses
 
