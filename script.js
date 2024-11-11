@@ -1,7 +1,6 @@
 let currentQuestionIndex = 0;
 let userResponses = [];
 let websiteCategory = '';
-let conflictKeywords = [];  // To store conflicting keywords
 
 // Sample dataset for testing
 let dataset = {
@@ -33,7 +32,7 @@ let dataset = {
     ]
 };
 
-// Function to display messages
+// Function to display messages in the chat box
 function displayMessage(message, sender) {
     const chatBox = document.getElementById("chatBox");
     const messageDiv = document.createElement("div");
@@ -48,6 +47,7 @@ function submitResponse() {
     const userInput = document.getElementById("userInput").value.trim();
     if (!userInput) return; // Don't process empty responses
 
+    // Store the user's response
     userResponses.push(userInput);
     displayMessage(userInput, "user");
 
@@ -75,21 +75,8 @@ function validateResponse(userInput) {
         // Optionally, ask a follow-up question
         displayMessage(currentQuestion.Followup_Questions[0], "bot");
     } else {
-        // If valid, check for conflicts before moving to the next question
-        checkForConflicts(userInput);
-    }
-}
-
-// Function to check for conflicts in user responses
-function checkForConflicts(userInput) {
-    for (let response of userResponses) {
-        if (userInput.toLowerCase() === response.toLowerCase()) {
-            displayMessage("This seems like a conflict with a previous answer. Could you clarify?", "bot");
-            return;
-        }
-    }
-    // No conflicts, proceed to the next question
-    askNextQuestion();
+        // If valid, move to the next question
+        askNextQuestion();
 }
 
 // Function to move to the next question
